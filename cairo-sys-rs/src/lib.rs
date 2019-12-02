@@ -10,7 +10,16 @@ extern crate libc;
 #[cfg(feature = "use_glib")]
 extern crate glib_sys as glib_ffi;
 
-#[cfg(any(feature = "xlib", feature = "dox"))]
+#[cfg(all(
+    any(
+        target_os = "linux",
+        target_os = "dragonfly",
+        target_os = "freebsd",
+        target_os = "openbsd",
+        target_os = "netbsd"
+    ),
+    any(feature = "xlib", feature = "dox")
+))]
 extern crate x11;
 
 #[cfg(all(windows, feature = "win32-surface"))]
@@ -21,7 +30,17 @@ pub mod winapi {
     pub use winapi_orig::shared::windef::HDC;
 }
 
-#[cfg(all(feature = "dox", not(feature = "win32-surface")))]
+#[cfg(all(
+    any(
+        target_os = "linux",
+        target_os = "dragonfly",
+        target_os = "freebsd",
+        target_os = "openbsd",
+        target_os = "netbsd"
+    ),
+    feature = "dox",
+    not(feature = "win32-surface")
+))]
 pub mod winapi {
     use libc::c_void;
 
@@ -31,7 +50,16 @@ pub mod winapi {
 
 use libc::{c_char, c_double, c_int, c_uchar, c_uint, c_ulong, c_void};
 
-#[cfg(any(feature = "xlib", feature = "dox"))]
+#[cfg(all(
+    any(
+        target_os = "linux",
+        target_os = "dragonfly",
+        target_os = "freebsd",
+        target_os = "openbsd",
+        target_os = "netbsd"
+    ),
+    any(feature = "xlib", feature = "dox")
+))]
 use x11::xlib;
 
 pub type cairo_antialias_t = c_int;
@@ -1251,7 +1279,16 @@ extern "C" {
     pub fn cairo_xcb_device_debug_set_precision(device: *mut cairo_device_t, precision: c_int);
 
     // CAIRO XLIB SURFACE
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_create(
         dpy: *mut xlib::Display,
         drawable: xlib::Drawable,
@@ -1259,7 +1296,16 @@ extern "C" {
         width: c_int,
         height: c_int,
     ) -> *mut cairo_surface_t;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_create_for_bitmap(
         dpy: *mut xlib::Display,
         bitmap: xlib::Pixmap,
@@ -1267,38 +1313,146 @@ extern "C" {
         width: c_int,
         height: c_int,
     ) -> *mut cairo_surface_t;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_set_size(surface: *mut cairo_surface_t, width: c_int, height: c_int);
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_set_drawable(
         surface: *mut cairo_surface_t,
         drawable: xlib::Drawable,
         width: c_int,
         height: c_int,
     );
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_display(surface: *mut cairo_surface_t) -> *mut xlib::Display;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_drawable(surface: *mut cairo_surface_t) -> xlib::Drawable;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_screen(surface: *mut cairo_surface_t) -> *mut xlib::Screen;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_visual(surface: *mut cairo_surface_t) -> *mut xlib::Visual;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_depth(surface: *mut cairo_surface_t) -> c_int;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_width(surface: *mut cairo_surface_t) -> c_int;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_surface_get_height(surface: *mut cairo_surface_t) -> c_int;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_device_debug_cap_xrender_version(
         device: *mut cairo_device_t,
         major_version: c_int,
         minor_version: c_int,
     );
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_device_debug_get_precision(device: *mut cairo_device_t) -> c_int;
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(all(
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "openbsd",
+            target_os = "netbsd"
+        ),
+        any(feature = "xlib", feature = "dox")
+    ))]
     pub fn cairo_xlib_device_debug_set_precision(device: *mut cairo_device_t, precision: c_int);
 
     // CAIRO WINDOWS SURFACE
